@@ -1,18 +1,31 @@
 {
-    "build": {
-      "preview": {
-        "android": {
-          "buildType": "apk"
-        }
-      },
-      "preview2": {
-        "android": {
-          "gradleCommand": ":app:assembleRelease"
-        }
-      },
-      "preview3": {
-        "developmentClient": true
-      },
-      "production": {}
+  "cli": {
+    "version": ">= 7.2.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "channel": "development",
+      "android": {
+        "buildType": "apk"
+     }
+    },
+    "preview": {
+      "distribution": "internal",
+      "channel": "preview",
+      "android": {
+        "buildType": "apk"
+     }
+    },
+    "production": {
+      "channel": "production",
+      "android": {
+        "buildType": "apk"
+     }
     }
+  },
+  "submit": {
+    "production": {}
   }
+}

@@ -1,8 +1,27 @@
 import { WebView } from "react-native-webview";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { StyleSheet, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import React, { useEffect, useRef } from 'react';
+import { BackHandler } from 'react-native';
 
-export default function WebviewScreen() {
+export default function WebviewScreen({ refreshing, onRefresh }) {
+  const webViewRef = useRef(null);
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+    return () => backHandler.remove();
+  }, []);
+
+  const handleBackPress = () => {
+    if (webViewRef.current) {
+      webViewRef.current.goBack();
+      return true; // Prevent default behavior (e.g., exit the app)
+    }
+    return false;
+  };
+
   const insets = useSafeAreaInsets();
   const url = "https://syai.onrender.com";
   const styles = StyleSheet.create({
@@ -16,9 +35,13 @@ export default function WebviewScreen() {
   return (
     <View style={styles.container}>
       <WebView
-        originWhitelist={['*']}
+        ref={webViewRef}
+        //originWhitelist={['*']}
         source={{ uri: url }}
+        startInLoadingState={true}
+        onLoadEnd={() => refreshing && onRefresh()}
       />
+      <StatusBar style="auto" />
     </View>
   );
 }
