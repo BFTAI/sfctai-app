@@ -4,8 +4,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { StyleSheet, View, RefreshControl, ScrollView, BackHandler } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
-
-
 export default function WebviewScreen() {
   const webViewRef = useRef(null);
   const insets = useSafeAreaInsets();
@@ -25,17 +23,13 @@ export default function WebviewScreen() {
     return false;
   };
 
-  const handleRefresh = () => {
-    if (webViewRef.current) {
-      webViewRef.current.reload();
-      return true; // Prevent default behavior (e.g., exit the app)
-    }
-    return false;
-  };
-
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    handleRefresh();
+    if (webViewRef.current) {
+      webViewRef.current.reload();
+    } else {
+      setRefreshing(false);
+    }
     }, []);
 
   const onLoadEnd = () => {
@@ -56,7 +50,10 @@ export default function WebviewScreen() {
       backgroundColor: '#38bdf8',
       //alignItems: 'center',
       justifyContent: 'center',
-    }
+    },
+    webView: {
+      backgroundColor: '#38bdf8',
+    },
   });
 
   return (
@@ -66,12 +63,13 @@ export default function WebviewScreen() {
         }
       >
     <View style={styles.container}>
-      <WebView
+      <WebView 
+        style={styles.webView}
         ref={webViewRef}
         source={{ uri: url }}
         startInLoadingState={true}
         onLoadEnd={onLoadEnd}
-        //originWhitelist={['*']}
+        originWhitelist={['*']}
       />
       <StatusBar style="auto" />
     </View>
