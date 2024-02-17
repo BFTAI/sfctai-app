@@ -1,12 +1,15 @@
+import React, { useEffect, useRef, useState } from 'react';
 import { WebView } from "react-native-webview";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, RefreshControl, ScrollView, BackHandler } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useRef } from 'react';
-import { BackHandler } from 'react-native';
 
-export default function WebviewScreen({ refreshing, onRefresh }) {
+
+
+export default function WebviewScreen() {
   const webViewRef = useRef(null);
+  const insets = useSafeAreaInsets();
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
@@ -22,7 +25,24 @@ export default function WebviewScreen({ refreshing, onRefresh }) {
     return false;
   };
 
-  const insets = useSafeAreaInsets();
+  const handleRefresh = () => {
+    if (webViewRef.current) {
+      webViewRef.current.reload();
+      return true; // Prevent default behavior (e.g., exit the app)
+    }
+    return false;
+  };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    handleRefresh();
+    }, []);
+
+  const onLoadEnd = () => {
+    setRefreshing(false);
+  };
+
+
   const url = "https://syai.onrender.com";
   const styles = StyleSheet.create({
     container: {
@@ -31,17 +51,30 @@ export default function WebviewScreen({ refreshing, onRefresh }) {
       justifyContent: 'center',
       paddingTop: insets.top
     },
+    scrollView: {
+      flex: 1,
+      backgroundColor: '#38bdf8',
+      //alignItems: 'center',
+      justifyContent: 'center',
+    }
   });
+
   return (
+    <ScrollView contentContainerStyle={styles.scrollView} 
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
     <View style={styles.container}>
       <WebView
         ref={webViewRef}
-        //originWhitelist={['*']}
         source={{ uri: url }}
         startInLoadingState={true}
-        onLoadEnd={() => refreshing && onRefresh()}
+        onLoadEnd={onLoadEnd}
+        //originWhitelist={['*']}
       />
       <StatusBar style="auto" />
     </View>
+    </ScrollView>
   );
 }
