@@ -8,20 +8,23 @@
       "distribution": "internal",
       "channel": "development",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "image": "latest"
      }
     },
     "preview": {
       "distribution": "internal",
       "channel": "preview",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "image": "latest"
      }
     },
     "production": {
       "channel": "production",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "image": "latest"
      }
     }
   },
