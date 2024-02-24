@@ -6,6 +6,9 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -16,9 +19,6 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "runtimeVersion": {
-        "policy": "appVersion"
-      },
       "bundleIdentifier": "com.anonymous.SFCTAI"
     },
     "android": {
@@ -26,8 +26,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#38bdf8"
       },
-      "package": "com.anonymous.SFCTAI",
-      "runtimeVersion": "1.0.0"
+      "package": "com.anonymous.SFCTAI"
     },
     "web": {
       "favicon": "./assets/favicon.png"
