@@ -18,7 +18,7 @@ export default function WebviewScreen() {
   const handleBackPress = () => {
     if (webViewRef.current) {
       webViewRef.current.goBack();
-      return true; // Prevent default behavior (e.g., exit the app)
+      return true; // Prevent default behavior (e.g. exit the app)
     }
     return false;
   };
