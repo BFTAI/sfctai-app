@@ -36,7 +36,7 @@ export default function WebviewScreen() {
     setRefreshing(false);
   };
 
-  const url = "http://217.196.51.106";
+  const url = "https://syai.onrender.com";
   const styles = StyleSheet.create({
     container: {
       flex: 1,
