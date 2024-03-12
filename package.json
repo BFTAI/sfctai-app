@@ -9,7 +9,8 @@
     "web": "expo start --web",
     "preview-build": "eas build -p android --profile preview",
     "development-build": "eas build --profile development --platform android",
-    "production-build": "eas build --profile production --platform android"
+    "production-build": "eas build --profile production --platform android",
+    "production-update": "eas update --branch production --message 'update'"
   },
   "dependencies": {
     "expo": "~50.0.2",
