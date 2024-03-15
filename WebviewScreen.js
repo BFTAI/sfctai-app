@@ -5,6 +5,7 @@ import { StyleSheet, View, RefreshControl, ScrollView, BackHandler } from "react
 import { StatusBar } from "expo-status-bar";
 
 export default function WebviewScreen() {
+  const url = "https://www.sfctai.com";
   const webViewRef = useRef(null);
   const insets = useSafeAreaInsets();
   const [refreshing, setRefreshing] = useState(false);
@@ -36,7 +37,6 @@ export default function WebviewScreen() {
     setRefreshing(false);
   };
 
-  const url = "https://syai.onrender.com";
   const styles = StyleSheet.create({
     container: {
       flex: 1,
