@@ -66,7 +66,7 @@ export default function WebviewScreen() {
         style={styles.webView}
         ref={webViewRef}
         source={{ uri: url }}
-        startInLoadingState={true}
+        //startInLoadingState={true}
         onLoadEnd={onLoadEnd}
         originWhitelist={['*']}
       />
